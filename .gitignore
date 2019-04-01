@@ -1,0 +1,5 @@
+*.xcbkptlist
+*.xcuserstate
+iOSArchitecturesDemo.xcodeproj/xcuserdata/igor_chernyshov.xcuserdatad/xcschemes/xcschememanagement.plist
+Pods/Pods.xcodeproj/xcuserdata/igor_chernyshov.xcuserdatad/xcschemes/xcschememanagement.plist
+.DS_Store
