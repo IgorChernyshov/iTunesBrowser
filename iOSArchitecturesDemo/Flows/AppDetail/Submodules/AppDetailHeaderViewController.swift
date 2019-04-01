@@ -110,7 +110,6 @@ final class AppDetailHeaderViewController: UIViewController {
             self.ratingLabel.topAnchor.constraint(equalTo: self.imageView.bottomAnchor, constant: 24.0),
             self.ratingLabel.leftAnchor.constraint(equalTo: self.imageView.leftAnchor),
             self.ratingLabel.widthAnchor.constraint(equalToConstant: 100.0),
-            
             self.ratingLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
             ])
     }
