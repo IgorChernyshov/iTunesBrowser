@@ -73,7 +73,8 @@ extension SearchPresenter: SearchViewOutput {
       self.viewInput?.navigationController?.pushViewController(appDetailViewController, animated: true)
     } else {
       guard let song = item as? ITunesSong else { return }
-      // TODO: - Song View Controller
+      let songDetailViewController = SongDetailViewController(song: song)
+      self.viewInput?.navigationController?.pushViewController(songDetailViewController, animated: true)
     }
   }
 }
