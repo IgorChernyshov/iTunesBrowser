@@ -27,10 +27,14 @@ final class AppStartManager {
     let tabBarController = UITabBarController()
     
     let searchAppsViewController = SearchModuleBuilder.build()
-    searchAppsViewController.navigationItem.title = "Search Application"
-    searchAppsViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+    searchAppsViewController.navigationItem.title = "Search Applications"
+    searchAppsViewController.tabBarItem = UITabBarItem(title: "Applications", image: #imageLiteral(resourceName: "applicationsIcon"), tag: 0)
     
-    let viewControllers = [searchAppsViewController]
+    let searchSongsViewController = SearchModuleBuilder.build()
+    searchSongsViewController.navigationItem.title = "Search Songs"
+    searchSongsViewController.tabBarItem = UITabBarItem(title: "Songs", image: #imageLiteral(resourceName: "songsIcon"), tag: 1)
+    
+    let viewControllers = [searchAppsViewController, searchSongsViewController]
     tabBarController.viewControllers = viewControllers.map { buildNavigationController(with: $0) }
     return tabBarController
   }()
