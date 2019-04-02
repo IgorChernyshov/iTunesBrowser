@@ -10,6 +10,7 @@
 		9C053BDA22539A47006F1912 /* AppDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C053BD622539A47006F1912 /* AppDetailViewController.swift */; };
 		9C053BDB22539A47006F1912 /* AppDetailHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C053BD822539A47006F1912 /* AppDetailHeaderViewController.swift */; };
 		9C053BDC22539A47006F1912 /* AppReleaseNotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C053BD922539A47006F1912 /* AppReleaseNotesViewController.swift */; };
+		9C053BDE2253B188006F1912 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C053BDD2253B188006F1912 /* SongCell.swift */; };
 		E0E1D2932034A3350011E01A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D2922034A3350011E01A /* AppDelegate.swift */; };
 		E0E1D2952034A3350011E01A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D2942034A3350011E01A /* SearchViewController.swift */; };
 		E0E1D29A2034A3350011E01A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0E1D2992034A3350011E01A /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		9C053BD622539A47006F1912 /* AppDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDetailViewController.swift; sourceTree = "<group>"; };
 		9C053BD822539A47006F1912 /* AppDetailHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDetailHeaderViewController.swift; sourceTree = "<group>"; };
 		9C053BD922539A47006F1912 /* AppReleaseNotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppReleaseNotesViewController.swift; sourceTree = "<group>"; };
+		9C053BDD2253B188006F1912 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		A067E149D296BC0C249FD11F /* Pods-iOSArchitecturesDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSArchitecturesDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOSArchitecturesDemo/Pods-iOSArchitecturesDemo.release.xcconfig"; sourceTree = "<group>"; };
 		E0E1D28F2034A3350011E01A /* iOSArchitecturesDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSArchitecturesDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E1D2922034A3350011E01A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,55 +79,6 @@
 				A067E149D296BC0C249FD11F /* Pods-iOSArchitecturesDemo.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		9C053BCF22539412006F1912 /* Applications */ = {
-			isa = PBXGroup;
-			children = (
-				F8BAEF0B224C055D00E7F853 /* Builder */,
-				F8BAEF04224BFEEC00E7F853 /* Presenter */,
-				F8A97B3622498F0C00FB2C0E /* View */,
-			);
-			path = Applications;
-			sourceTree = "<group>";
-		};
-		9C053BD022539424006F1912 /* Songs */ = {
-			isa = PBXGroup;
-			children = (
-				9C053BD422539516006F1912 /* Builder */,
-				9C053BD322539512006F1912 /* Presenter */,
-				9C053BD122539439006F1912 /* View */,
-			);
-			path = Songs;
-			sourceTree = "<group>";
-		};
-		9C053BD122539439006F1912 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				9C053BD22253943F006F1912 /* SongDetail */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		9C053BD22253943F006F1912 /* SongDetail */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SongDetail;
-			sourceTree = "<group>";
-		};
-		9C053BD322539512006F1912 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		9C053BD422539516006F1912 /* Builder */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Builder;
 			sourceTree = "<group>";
 		};
 		9C053BD522539A47006F1912 /* AppDetail */ = {
@@ -196,8 +149,9 @@
 		E0E1D2A62034A36C0011E01A /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				9C053BD022539424006F1912 /* Songs */,
-				9C053BCF22539412006F1912 /* Applications */,
+				F8BAEF0B224C055D00E7F853 /* Builder */,
+				F8BAEF04224BFEEC00E7F853 /* Presenter */,
+				F8A97B3622498F0C00FB2C0E /* View */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -303,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				F8A97B342249898E00FB2C0E /* AppCell.swift */,
+				9C053BDD2253B188006F1912 /* SongCell.swift */,
 				9C053BD522539A47006F1912 /* AppDetail */,
 				E0E1D2942034A3350011E01A /* SearchViewController.swift */,
 				F8BAEF07224C040100E7F853 /* SearchViewInterface.swift */,
@@ -463,6 +418,7 @@
 				E0E1D3D4203C4AA50011E01A /* UIColor+Extensions.swift in Sources */,
 				F8BAEF08224C040100E7F853 /* SearchViewInterface.swift in Sources */,
 				E0E1D358203ADC590011E01A /* NetworkManager.swift in Sources */,
+				9C053BDE2253B188006F1912 /* SongCell.swift in Sources */,
 				F8BAEF0A224C055700E7F853 /* SearchModuleBuilder.swift in Sources */,
 				E0E1D39C203AE6420011E01A /* ITunesSong.swift in Sources */,
 				E0E1D2952034A3350011E01A /* SearchViewController.swift in Sources */,
