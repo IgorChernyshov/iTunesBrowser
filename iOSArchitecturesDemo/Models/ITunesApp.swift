@@ -19,6 +19,7 @@ public struct ITunesApp: Codable {
   public let appDescription: String?
   public let releaseNotes: String?
   public let version: String?
+  public let currentVersionReleaseDate: String?
   public let averageRating: Float?
   public let averageRatingForCurrentVersion: Float?
   public let size: Bytes?
@@ -35,6 +36,7 @@ public struct ITunesApp: Codable {
     case appDescription = "description"
     case releaseNotes
     case version
+    case currentVersionReleaseDate
     case averageRating = "averageUserRating"
     case averageRatingForCurrentVersion = "averageUserRatingForCurrentVersion"
     case size = "fileSizeBytes"
@@ -51,6 +53,7 @@ public struct ITunesApp: Codable {
     self.appDescription = try? container.decode(String.self, forKey: .appDescription)
     self.releaseNotes = try? container.decode(String.self, forKey: .releaseNotes)
     self.version = try? container.decode(String.self, forKey: .version)
+    self.currentVersionReleaseDate = try? container.decode(String.self, forKey: .currentVersionReleaseDate)
     self.averageRating = try? container.decode(Float.self, forKey: .averageRating)
     self.averageRatingForCurrentVersion = try? container.decode(Float.self, forKey: .averageRatingForCurrentVersion)
     self.size = (try? container.decode(String.self, forKey: .size)) >>- { Bytes($0) }
@@ -67,6 +70,7 @@ public struct ITunesApp: Codable {
                 appDescription: String?,
                 releaseNotes: String?,
                 version: String?,
+                currentVersionReleaseDate: String?,
                 averageRating: Float?,
                 averageRatingForCurrentVersion: Float?,
                 size: Bytes?,
@@ -79,6 +83,7 @@ public struct ITunesApp: Codable {
     self.appDescription = appDescription
     self.releaseNotes = releaseNotes
     self.version = version
+    self.currentVersionReleaseDate = currentVersionReleaseDate
     self.averageRating = averageRating
     self.averageRatingForCurrentVersion = averageRatingForCurrentVersion
     self.size = size

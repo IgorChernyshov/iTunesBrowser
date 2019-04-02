@@ -51,7 +51,6 @@ final class AppDetailViewController: UIViewController {
   }
   
   private func addDescriptionViewController() {
-    // TODO: ДЗ, сделать другие сабмодули
     self.addChild(self.releaseNotesViewController)
     self.view.addSubview(self.releaseNotesViewController.view)
     self.releaseNotesViewController.didMove(toParent: self)
@@ -61,7 +60,6 @@ final class AppDetailViewController: UIViewController {
       self.releaseNotesViewController.view.topAnchor.constraint(equalTo: self.headerViewController.view.bottomAnchor),
       self.releaseNotesViewController.view.leftAnchor.constraint(equalTo: self.view.leftAnchor),
       self.releaseNotesViewController.view.rightAnchor.constraint(equalTo: self.view.rightAnchor),
-      self.releaseNotesViewController.view.heightAnchor.constraint(equalToConstant: 250.0)
       ])
   }
 }

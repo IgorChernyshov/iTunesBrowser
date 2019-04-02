@@ -46,6 +46,56 @@ final class AppReleaseNotesViewController: UIViewController {
     return button
   }()
   
+  private(set) lazy var releaseDateLabel: UILabel = {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.textColor = .black
+    label.font = UIFont.systemFont(ofSize: 14)
+    return label
+  }()
+  
+  // MARK: - Stack views
+  
+  private(set) var titleAndVersionNumberStack: UIStackView = {
+    let stackView = UIStackView()
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.axis = .vertical
+    stackView.distribution = .fillEqually
+    stackView.alignment = .leading
+    stackView.spacing = 0
+    return stackView
+  }()
+  
+  private(set) var versionHistoryAndDateStack: UIStackView = {
+    let stackView = UIStackView()
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.axis = .vertical
+    stackView.distribution = .fillEqually
+    stackView.alignment = .trailing
+    stackView.spacing = 0
+    return stackView
+  }()
+  
+  private(set) var topElementsStack: UIStackView = {
+    let stackView = UIStackView()
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.axis = .horizontal
+    stackView.distribution = .fillEqually
+    stackView.alignment = .fill
+    stackView.spacing = 8
+    return stackView
+  }()
+  
+  private(set) var allElementsStack: UIStackView = {
+    let stackView = UIStackView()
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.axis = .vertical
+    stackView.distribution = .fill
+    stackView.alignment = .fill
+    stackView.spacing = 8
+    return stackView
+  }()
+  
   // MARK: - Properties
   
   private let app: ITunesApp
@@ -62,6 +112,7 @@ final class AppReleaseNotesViewController: UIViewController {
   }
   
   // MARK: - Lifecycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     setupLayout()
@@ -69,37 +120,50 @@ final class AppReleaseNotesViewController: UIViewController {
   }
   
   // MARK: - Private
+  
   private func setupLayout() {
-    self.view.addSubview(titleLabel)
-    self.view.addSubview(versionNumberLabel)
-    self.view.addSubview(versionHistoryButtonMock)
-    self.view.addSubview(releaseNotesLabel)
+    self.view.addSubview(titleAndVersionNumberStack)
+    self.titleAndVersionNumberStack.addArrangedSubview(titleLabel)
+    self.titleAndVersionNumberStack.addArrangedSubview(versionNumberLabel)
+    
+    self.view.addSubview(versionHistoryAndDateStack)
+    self.versionHistoryAndDateStack.addArrangedSubview(versionHistoryButtonMock)
+    self.versionHistoryAndDateStack.addArrangedSubview(releaseDateLabel)
+    
+    self.view.addSubview(topElementsStack)
+    self.topElementsStack.addArrangedSubview(titleAndVersionNumberStack)
+    self.topElementsStack.addArrangedSubview(versionHistoryAndDateStack)
+    
+    self.view.addSubview(allElementsStack)
+    self.allElementsStack.addArrangedSubview(topElementsStack)
+    self.allElementsStack.addArrangedSubview(releaseNotesLabel)
     
     NSLayoutConstraint.activate([
-      self.titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-      self.titleLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 12.0),
-      self.titleLabel.heightAnchor.constraint(equalToConstant: 25.0),
-      self.titleLabel.widthAnchor.constraint(equalToConstant: 100.0),
-      
-      self.versionNumberLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor),
-      self.versionNumberLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 12.0),
-      self.versionNumberLabel.heightAnchor.constraint(equalToConstant: 25.0),
-      
-      self.releaseNotesLabel.topAnchor.constraint(equalTo: self.versionNumberLabel.bottomAnchor),
-      self.releaseNotesLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 12.0),
-      self.releaseNotesLabel.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -12.0),
-      self.releaseNotesLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-      
-      self.versionHistoryButtonMock.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-      self.versionHistoryButtonMock.leftAnchor.constraint(equalTo: self.titleLabel.rightAnchor, constant: 12.0),
-      self.versionHistoryButtonMock.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -12.0),
-      self.versionHistoryButtonMock.heightAnchor.constraint(equalToConstant: 30.0)
+      self.allElementsStack.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+      self.allElementsStack.leftAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leftAnchor, constant: 12.0),
+      self.allElementsStack.rightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.rightAnchor, constant: -12.0),
+      self.allElementsStack.bottomAnchor.constraint(greaterThanOrEqualTo: self.view.safeAreaLayoutGuide.bottomAnchor)
       ])
   }
   
   private func fillData() {
     self.versionNumberLabel.text = "Версия \(app.version ?? "")"
     self.releaseNotesLabel.text = app.releaseNotes
+    self.releaseDateLabel.text = "Дата выхода: \(readableDate(fromAPIDate: app.currentVersionReleaseDate ?? ""))"
+  }
+  
+  private func readableDate(fromAPIDate dateString: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.calendar = Calendar(identifier: .iso8601)
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'hh:mm:ss'Z'"
+    let newFormat = DateFormatter()
+    newFormat.locale = .init(identifier: "RU")
+    newFormat.dateFormat = "dd MMM"
+    if let date = dateFormatter.date(from: dateString) {
+      return newFormat.string(from: date)
+    } else {
+      return ""
+    }
   }
   
 }
