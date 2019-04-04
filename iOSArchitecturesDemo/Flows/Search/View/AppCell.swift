@@ -40,7 +40,7 @@ final class AppCell: UITableViewCell {
         button.setTitle("Открыть", for: .normal)
         button.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
         button.layer.cornerRadius = 16.0
-        button.addTarget(self, action: #selector(openButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(songDetailsButtonWasPressed), for: .touchUpInside)
         return button
     }()
     
@@ -108,7 +108,7 @@ final class AppCell: UITableViewCell {
             ])
     }
     
-    @objc private func openButtonPressed() {
+    @objc private func songDetailsButtonWasPressed() {
         onOpenButtonTap?()
     }
 }

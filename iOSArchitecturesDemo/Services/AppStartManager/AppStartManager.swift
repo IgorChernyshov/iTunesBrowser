@@ -9,30 +9,42 @@
 import UIKit
 
 final class AppStartManager {
+  
+  var window: UIWindow?
+  
+  init(window: UIWindow?) {
+    self.window = window
+  }
+  
+  func start() {
+    let rootViewController = self.configuredTabBarController
     
-    var window: UIWindow?
+    window?.rootViewController = rootViewController
+    window?.makeKeyAndVisible()
+  }
+  
+  private lazy var configuredTabBarController: UITabBarController = {
+    let tabBarController = UITabBarController()
     
-    init(window: UIWindow?) {
-        self.window = window
-    }
+    let searchAppsViewController = SearchModuleBuilder.build()
+    searchAppsViewController.navigationItem.title = "Search Applications"
+    searchAppsViewController.tabBarItem = UITabBarItem(title: "Applications", image: #imageLiteral(resourceName: "applicationsIcon"), tag: 0)
     
-    func start() {
-        let rootVC = SearchModuleBuilder.build()
-        rootVC.navigationItem.title = "Search via iTunes"
-        
-        let navVC = self.configuredNavigationController
-        navVC.viewControllers = [rootVC]
-        
-        window?.rootViewController = navVC
-        window?.makeKeyAndVisible()
-    }
+    let searchSongsViewController = SearchModuleBuilder.build()
+    searchSongsViewController.navigationItem.title = "Search Songs"
+    searchSongsViewController.tabBarItem = UITabBarItem(title: "Songs", image: #imageLiteral(resourceName: "songsIcon"), tag: 1)
     
-    private lazy var configuredNavigationController: UINavigationController = {
-        let navVC = UINavigationController()
-        navVC.navigationBar.barTintColor = UIColor.varna
-        navVC.navigationBar.isTranslucent = false
-        navVC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        navVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        return navVC
-    }()
+    let viewControllers = [searchAppsViewController, searchSongsViewController]
+    tabBarController.viewControllers = viewControllers.map { buildNavigationController(with: $0) }
+    return tabBarController
+  }()
+  
+  private func buildNavigationController(with rootViewController: UIViewController) -> UINavigationController {
+    let navigationViewController = UINavigationController(rootViewController: rootViewController)
+    navigationViewController.navigationBar.barTintColor = UIColor.varna
+    navigationViewController.navigationBar.isTranslucent = false
+    navigationViewController.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    navigationViewController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    return navigationViewController
+  }
 }
