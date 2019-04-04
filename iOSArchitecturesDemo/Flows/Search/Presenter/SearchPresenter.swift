@@ -8,14 +8,30 @@
 
 import UIKit
 
+/// Presenter.
+/// View owns a presenter and reports it user interaction events.
+/// Presenter owns an interactor and a router.
+/// All requests to services are sent to interactor.
+/// All navigation requests are sent to router.
 final class SearchPresenter {
   
-  weak var viewInput: (UIViewController & SearchViewInput)?
+  // MARK: - Dependencies
   
-  private let searchService = ITunesSearchService()
+  weak var viewInput: (UIViewController & SearchViewInput)?
+  let interactor: SearchInteractorInput
+  let router: SearchRouterInput
+  
+  // MARK: - Init
+  
+  init(interactor: SearchInteractorInput, router: SearchRouterInput) {
+    self.interactor = interactor
+    self.router = router
+  }
+  
+  // MARK: - Interactor requests
   
   private func requestApps(with query: String) {
-    self.searchService.getApps(forQuery: query) { [weak self] result in
+    self.interactor.requestApps(with: query) { [weak self] result in
       guard let self = self else { return }
       self.viewInput?.throbber(show: false)
       result
@@ -34,7 +50,7 @@ final class SearchPresenter {
   }
   
   private func requestSongs(with query: String) {
-    self.searchService.getSongs(forQuery: query) { [weak self] result in
+    self.interactor.requestSongs(with: query) { [weak self] result in
       guard let self = self else { return }
       self.viewInput?.throbber(show: false)
       result
@@ -67,14 +83,6 @@ extension SearchPresenter: SearchViewOutput {
   }
   
   func viewDidSelectItem(_ item: Any) {
-    if viewInput?.tabBarController?.selectedIndex == 0 {
-      guard let app = item as? ITunesApp else { return }
-      let appDetailViewController = AppDetailViewController(app: app)
-      self.viewInput?.navigationController?.pushViewController(appDetailViewController, animated: true)
-    } else {
-      guard let song = item as? ITunesSong else { return }
-      let songDetailViewController = SongDetailViewController(song: song)
-      self.viewInput?.navigationController?.pushViewController(songDetailViewController, animated: true)
-    }
+    self.router.openDetailsFor(item)
   }
 }

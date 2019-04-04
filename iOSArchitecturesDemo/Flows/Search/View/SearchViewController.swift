@@ -10,7 +10,7 @@ import UIKit
 
 final class SearchViewController: UIViewController {
   
-  private let presenter: SearchViewOutput
+  private let output: SearchViewOutput
   
   // MARK: - Views
   
@@ -37,8 +37,8 @@ final class SearchViewController: UIViewController {
   
   // MARK: - Init
   
-  init(presenter: SearchViewOutput) {
-    self.presenter = presenter
+  init(output: SearchViewOutput) {
+    self.output = output
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -207,7 +207,7 @@ extension SearchViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     let item = searchResults[indexPath.row]
-    self.presenter.viewDidSelectItem(item)
+    self.output.viewDidSelectItem(item)
   }
 }
 
@@ -223,6 +223,6 @@ extension SearchViewController: UISearchBarDelegate {
       searchBar.resignFirstResponder()
       return
     }
-    self.presenter.viewDidSearch(with: query)
+    self.output.viewDidSearch(with: query)
   }
 }
