@@ -82,7 +82,12 @@ extension SearchPresenter: SearchViewOutput {
     }
   }
   
-  func viewDidSelectItem(_ item: Any) {
-    self.router.openDetails(for: item)
+  func viewDidSelect(app: ITunesApp) {
+    self.router.openDetails(for: app)
   }
+  
+  func viewDidSelect(song: ITunesSong) {
+    self.router.openDetails(for: song)
+  }
+
 }

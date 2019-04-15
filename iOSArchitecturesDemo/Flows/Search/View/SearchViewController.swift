@@ -207,7 +207,11 @@ extension SearchViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     let item = searchResults[indexPath.row]
-    self.output.viewDidSelectItem(item)
+    if let app = item as? ITunesApp {
+      self.output.viewDidSelect(app: app)
+    } else if let song = item as? ITunesSong {
+      self.output.viewDidSelect(song: song)
+    }
   }
 }
 
