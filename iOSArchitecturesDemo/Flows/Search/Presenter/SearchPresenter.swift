@@ -83,6 +83,6 @@ extension SearchPresenter: SearchViewOutput {
   }
   
   func viewDidSelectItem(_ item: Any) {
-    self.router.openDetailsFor(item)
+    self.router.openDetails(for: item)
   }
 }

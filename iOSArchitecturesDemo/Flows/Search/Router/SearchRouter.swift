@@ -9,14 +9,14 @@
 import UIKit
 
 protocol SearchRouterInput {
-  func openDetailsFor(_ item: Any)
+  func openDetails(for item: Any)
 }
 
 class SearchRouter: SearchRouterInput {
   
   weak var viewController: UIViewController?
   
-  func openDetailsFor(_ item: Any) {
+  func openDetails(for item: Any) {
     if let item = item as? ITunesApp {
       let appDetailViewController = AppDetailViewController(app: item)
       self.viewController?.navigationController?.pushViewController(appDetailViewController, animated: true)
